@@ -16,7 +16,17 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Russo+One&display=swap" rel="stylesheet">
-     <link rel='stylesheet' href="{% static 'simplesocial/static/css/master.css' %}">
+    <style>
+        body{
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            color:white;
+          }
+          .logout{
+            margin-top:10px;
+          }
+    </style>
 </head>
 <body>
     <nav class="navbar mynav" role='navigation' id='navbar'>
@@ -27,7 +37,7 @@
                     <li><a href="{% url 'posts:create' %}">Post</a></li>
                     <li><a href="{% url 'groups:all' %}">Groups</a></li>
                     <li><a href="{% url 'groups:create' %}">Create Group</a></li>
-                    <li>
+                    <li class="logout">
                         <form method="post" action="{% url 'accounts:logout' %}">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-link ">Log out</button>
@@ -45,5 +55,7 @@
     {% block content %}
     {% endblock %}
     </div>
+    <canvas id="canvas"></canvas>
+    <script type='text/javascript' src="{% static 'simplesocial/js/master.js' %}"></script>
 </body>
 </html>

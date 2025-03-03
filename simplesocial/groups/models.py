@@ -4,9 +4,7 @@ from django.utils.text import slugify
 # Create your models here.
 #Group models.py
 import misaka
-
-from django.contrib.auth import get_user_model
-User = get_user_model
+from django.contrib.auth.models import User
 
 from django import template
 register = template.Library()
@@ -25,7 +23,7 @@ class Group(models.Model):
         self.description_html = misaka.html(self.description)
         super().save(*args, **kwargs)
     def get_absolute_url(self):
-        return reverse("group:single", kwargs={"slug": self.slug})
+        return reverse("groups:single", kwargs={"slug": self.slug})
     class Meta:
         ordering = ['name']    
         

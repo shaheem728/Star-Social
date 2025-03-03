@@ -3,17 +3,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 # Create your views here.
 # Posts Views.py
+from django.contrib import messages
 from django.http import Http404
 from django.views.generic import TemplateView,ListView,DetailView,CreateView,DeleteView
-
 from braces.views import SelectRelatedMixin
-
 from . import models
 from . import forms
-
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
+from django.contrib.auth.models import User
 class PostList(SelectRelatedMixin,ListView):
     model = models.Post
     select_related = ('user','group')
@@ -48,6 +44,7 @@ class CreatePost(LoginRequiredMixin,SelectRelatedMixin,CreateView):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.save()
+        return super().form_valid(form)    
 
 class DeletePost(LoginRequiredMixin,SelectRelatedMixin,DeleteView):
     model = models.Post
